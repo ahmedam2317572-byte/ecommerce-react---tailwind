@@ -4,8 +4,23 @@ import axios from "axios";
 
 export function Product({ product, loadCart }) {
   const [quantity, setQuantity] = useState(1);
+  const [showAddedMessage, setShowAddedMessage] = useState(false);
+
+  const addToCart = async () => {
+    await axios.post("api/cart-items", {
+      productId: product.id,
+      quantity: quantity,
+    });
+    await loadCart();
+    setShowAddedMessage(true);
+
+    setTimeout(() => {
+      setShowAddedMessage(false);
+    }, 2000);
+  };
+
   return (
-    <div key={product.id} className="product-container">
+    <div className="product-container">
       <div className="product-image-container">
         <img className="product-image" src={product.image} />
       </div>
@@ -49,21 +64,15 @@ export function Product({ product, loadCart }) {
 
       <div className="product-spacer"></div>
 
-      <div className="added-to-cart">
+      <div
+        className="added-to-cart"
+        style={{ opacity: showAddedMessage ? 1 : 0 }}
+      >
         <img src={checkmarkIcon} />
         Added
       </div>
 
-      <button
-        className="add-to-cart-button button-primary"
-        onClick={async () => {
-          await axios.post("api/cart-items", {
-            productId: product.id,
-            quantity: quantity,
-          });
-          await loadCart();
-        }}
-      >
+      <button className="add-to-cart-button button-primary" onClick={addToCart}>
         Add to Cart
       </button>
     </div>

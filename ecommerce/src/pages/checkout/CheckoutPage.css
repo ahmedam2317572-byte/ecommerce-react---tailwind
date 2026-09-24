@@ -32,6 +32,10 @@
   align-items: start;
 }
 
+.quantity-input {
+  width: 50px;
+}
+
 @media (max-width: 1000px) {
   .checkout-page .main {
     max-width: 500px;
@@ -110,7 +114,6 @@
 }
 
 .checkout-page .product-price {
-
   font-weight: 700;
   margin-bottom: 5px;
 }
@@ -152,7 +155,6 @@
 }
 
 .checkout-page .delivery-option-date {
-
   font-weight: 500;
   margin-bottom: 3px;
 }
