@@ -3,6 +3,7 @@ import { OrderHeader } from "./OrderHeader";
 import { OrderDetails } from "./OrderDetails";
 import "./OrdersPage.css";
 import { useState, useEffect } from "react";
+import OrdersIcon from "../../../public/images/orders-favicon.png";
 import axios from "axios";
 
 export function OrdersPage({ cart, loadCart }) {
@@ -18,7 +19,7 @@ export function OrdersPage({ cart, loadCart }) {
 
   return (
     <>
-      <link rel="icon" href="/public/images/orders-favicon.png" />
+      <link rel="icon" href={OrdersIcon} />
 
       <title>Orders</title>
 
