@@ -7,7 +7,10 @@ import { CartItem } from "../models/CartItem.js";
 const router = express.Router();
 
 const getDeviceId = (req) =>
-  req.headers["x-device-id"] || req.headers["device-id"];
+  req.headers["x-device-id"] ||
+  req.headers["device-id"] ||
+  req.body?.deviceId ||
+  req.query?.deviceId;
 
 router.get("/", async (req, res) => {
   const expand = req.query.expand;

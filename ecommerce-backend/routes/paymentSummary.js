@@ -6,7 +6,7 @@ import { DeliveryOption } from "../models/DeliveryOption.js";
 const router = express.Router();
 
 const getDeviceId = (req) =>
-  req.headers["x-device-id"] || req.headers["device-id"];
+  req.headers["x-device-id"] || req.headers["device-id"] || req.query?.deviceId;
 
 router.get("/", async (req, res) => {
   const deviceId = getDeviceId(req);

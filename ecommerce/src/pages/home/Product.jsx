@@ -10,6 +10,7 @@ export function Product({ product, loadCart }) {
     await axios.post("api/cart-items", {
       productId: product.id,
       quantity: quantity,
+      deviceId: localStorage.getItem("ecommerce-device-id"),
     });
     await loadCart();
     setShowAddedMessage(true);

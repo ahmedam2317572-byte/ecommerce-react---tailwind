@@ -27,6 +27,8 @@ const getOrCreateDeviceId = () => {
 
 const deviceId = getOrCreateDeviceId();
 axios.defaults.headers.common["X-Device-Id"] = deviceId;
+axios.defaults.headers.common["x-device-id"] = deviceId;
+axios.defaults.headers.common["device-id"] = deviceId;
 
 window.axios = axios;
 function App() {
