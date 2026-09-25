@@ -32,7 +32,6 @@ router.post("/", async (req, res) => {
 
   const cartItemsWithTimestamps = defaultCart.map((item, index) => ({
     ...item,
-    deviceId: "default-device",
     createdAt: new Date(timestamp + index),
     updatedAt: new Date(timestamp + index),
   }));

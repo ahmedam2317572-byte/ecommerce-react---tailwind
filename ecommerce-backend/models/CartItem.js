@@ -1,40 +1,39 @@
-import { DataTypes } from 'sequelize';
-import { sequelize } from './index.js';
+import { DataTypes } from "sequelize";
+import { sequelize } from "./index.js";
 
-export const CartItem = sequelize.define('CartItem', {
-  deviceId: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    defaultValue: 'default-device'
+export const CartItem = sequelize.define(
+  "CartItem",
+  {
+    productId: {
+      type: DataTypes.UUID,
+      allowNull: false,
+      references: {
+        model: "Products",
+        key: "id",
+      },
+    },
+    quantity: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    deliveryOptionId: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      references: {
+        model: "DeliveryOptions",
+        key: "id",
+      },
+    },
+    createdAt: {
+      type: DataTypes.DATE(3),
+    },
+    updatedAt: {
+      type: DataTypes.DATE(3),
+    },
   },
-  productId: {
-    type: DataTypes.UUID,
-    allowNull: false,
-    references: {
-      model: 'Products',
-      key: 'id'
-    }
+  {
+    defaultScope: {
+      order: [["createdAt", "ASC"]],
+    },
   },
-  quantity: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  deliveryOptionId: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    references: {
-      model: 'DeliveryOptions',
-      key: 'id'
-    }
-  },
-  createdAt: {
-    type: DataTypes.DATE(3)
-  },
-  updatedAt: {
-    type: DataTypes.DATE(3)
-  },
-}, {
-  defaultScope: {
-    order: [['createdAt', 'ASC']]
-  }
-});
+);

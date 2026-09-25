@@ -6,12 +6,6 @@ import { CartItem } from "../models/CartItem.js";
 
 const router = express.Router();
 
-const getDeviceId = (req) =>
-  req.headers["x-device-id"] ||
-  req.headers["device-id"] ||
-  req.body?.deviceId ||
-  req.query?.deviceId;
-
 router.get("/", async (req, res) => {
   const expand = req.query.expand;
   let orders = await Order.unscoped().findAll({
@@ -42,12 +36,7 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const deviceId = getDeviceId(req);
-  if (!deviceId) {
-    return res.status(400).json({ error: "Device ID is required" });
-  }
-
-  const cartItems = await CartItem.findAll({ where: { deviceId } });
+  const cartItems = await CartItem.findAll();
 
   if (cartItems.length === 0) {
     return res.status(400).json({ error: "Cart is empty" });
@@ -87,7 +76,7 @@ router.post("/", async (req, res) => {
     products,
   });
 
-  await CartItem.destroy({ where: { deviceId } });
+  await CartItem.destroy({ where: {} });
 
   res.status(201).json(order);
 });

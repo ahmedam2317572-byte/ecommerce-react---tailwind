@@ -12,7 +12,6 @@ export function OrderDetails({ order, loadCart }) {
           await axios.post("/api/cart-items", {
             productId: orderProduct.product.id,
             quantity: 1,
-            deviceId: localStorage.getItem("ecommerce-device-id"),
           });
           loadCart();
         };

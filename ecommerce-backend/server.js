@@ -27,13 +27,7 @@ const corsOptions = {
   origin: true,
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: [
-    "Content-Type",
-    "Authorization",
-    "X-Device-Id",
-    "x-device-id",
-    "device-id",
-  ],
+  allowedHeaders: ["Content-Type", "Authorization"],
 };
 
 // Middleware
@@ -96,7 +90,6 @@ if (productCount === 0) {
 
   const cartItemsWithTimestamps = defaultCart.map((item, index) => ({
     ...item,
-    deviceId: "default-device",
     createdAt: new Date(timestamp + index),
     updatedAt: new Date(timestamp + index),
   }));

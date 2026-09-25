@@ -8,29 +8,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "./App.css";
 
-const DEVICE_ID_KEY = "ecommerce-device-id";
-
-const getOrCreateDeviceId = () => {
-  const savedDeviceId = localStorage.getItem(DEVICE_ID_KEY);
-  if (savedDeviceId) {
-    return savedDeviceId;
-  }
-
-  const newDeviceId =
-    typeof crypto !== "undefined" && crypto.randomUUID
-      ? crypto.randomUUID()
-      : `device-${Date.now()}-${Math.random().toString(16).slice(2)}`;
-
-  localStorage.setItem(DEVICE_ID_KEY, newDeviceId);
-  return newDeviceId;
-};
-
-const deviceId = getOrCreateDeviceId();
-axios.defaults.headers.common["X-Device-Id"] = deviceId;
-axios.defaults.headers.common["x-device-id"] = deviceId;
-axios.defaults.headers.common["device-id"] = deviceId;
-
-window.axios = axios;
 function App() {
   const [cart, setCart] = useState([]);
 

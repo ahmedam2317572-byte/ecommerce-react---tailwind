@@ -5,16 +5,8 @@ import { DeliveryOption } from "../models/DeliveryOption.js";
 
 const router = express.Router();
 
-const getDeviceId = (req) =>
-  req.headers["x-device-id"] || req.headers["device-id"] || req.query?.deviceId;
-
 router.get("/", async (req, res) => {
-  const deviceId = getDeviceId(req);
-  if (!deviceId) {
-    return res.status(400).json({ error: "Device ID is required" });
-  }
-
-  const cartItems = await CartItem.findAll({ where: { deviceId } });
+  const cartItems = await CartItem.findAll();
   let totalItems = 0;
   let productCostCents = 0;
   let shippingCostCents = 0;
