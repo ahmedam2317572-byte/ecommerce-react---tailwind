@@ -1,12 +1,20 @@
-import express from 'express';
-import { CartItem } from '../models/CartItem.js';
-import { Product } from '../models/Product.js';
-import { DeliveryOption } from '../models/DeliveryOption.js';
+import express from "express";
+import { CartItem } from "../models/CartItem.js";
+import { Product } from "../models/Product.js";
+import { DeliveryOption } from "../models/DeliveryOption.js";
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
-  const cartItems = await CartItem.findAll();
+const getDeviceId = (req) =>
+  req.headers["x-device-id"] || req.headers["device-id"];
+
+router.get("/", async (req, res) => {
+  const deviceId = getDeviceId(req);
+  if (!deviceId) {
+    return res.status(400).json({ error: "Device ID is required" });
+  }
+
+  const cartItems = await CartItem.findAll({ where: { deviceId } });
   let totalItems = 0;
   let productCostCents = 0;
   let shippingCostCents = 0;
@@ -29,7 +37,7 @@ router.get('/', async (req, res) => {
     shippingCostCents,
     totalCostBeforeTaxCents,
     taxCents,
-    totalCostCents
+    totalCostCents,
   });
 });
 

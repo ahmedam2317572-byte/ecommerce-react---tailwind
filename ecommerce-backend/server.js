@@ -61,7 +61,7 @@ app.use((err, req, res, next) => {
 /* eslint-enable no-unused-vars */
 
 // Sync database and load default data if none exist
-await sequelize.sync();
+await sequelize.sync({ alter: true });
 
 const productCount = await Product.count();
 if (productCount === 0) {
@@ -81,6 +81,7 @@ if (productCount === 0) {
 
   const cartItemsWithTimestamps = defaultCart.map((item, index) => ({
     ...item,
+    deviceId: 'default-device',
     createdAt: new Date(timestamp + index),
     updatedAt: new Date(timestamp + index)
   }));
